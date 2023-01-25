@@ -21,3 +21,10 @@ class UserServiceImpl(UserService):
         decoded_key = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'),
                                           ENCRYPTION_SALT, 100000)
         return binascii.hexlify(decoded_key).decode('utf-8')
+
+    def validate_user_by_email_and_password(self, email: str, password: str) -> bool:
+        encrypted_password = self.encrypt_password(password)
+        user = self.user_repository.get_user_by_email_password(email, encrypted_password)
+        if user:
+            return True
+        return False

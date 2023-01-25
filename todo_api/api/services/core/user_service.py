@@ -11,3 +11,7 @@ class UserService:
     @abstractmethod
     def get_user_by_email(self, email: str) -> User:
         raise NotImplementedError
+
+    @abstractmethod
+    def validate_user_by_email_and_password(self, email: str, password: str) -> bool:
+        raise NotImplementedError

@@ -14,3 +14,11 @@ class UserRepository:
         except ObjectDoesNotExist:
             return None
 
+    def get_user_by_email_password(self, email: str, password: str) -> User:
+        try:
+            user = User.objects.get(email=email, password=password)
+            return user
+        except ObjectDoesNotExist:
+            return None
+
+

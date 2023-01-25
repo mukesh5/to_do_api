@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.shortcuts import render
 from datetime import datetime
 from rest_framework.decorators import api_view
@@ -10,7 +11,7 @@ from api.supportlib.utils.api_utils import ApiTokenUtil
 
 
 @api_view(['POST'])
-def register_user(request):
+def register_user(request: HttpRequest) -> Response:
     user_service = UserServiceImpl()
     user_data = UserSerializer(data=request.data)
     if not user_data.is_valid():
@@ -38,3 +39,34 @@ def register_user(request):
         'email': user.email
     }
     return Response(data=data)
+
+
+@api_view(['POST'])
+def validate_user_login(request: HttpRequest) -> Response:
+    user_service = UserServiceImpl()
+    email = request.data.get('email')
+    password = request.data.get('password')
+    if not email:
+        return Response(status=422, data={'message': 'Email or password is missing'})
+    if not password:
+        return Response(status=422, data={'message': 'Email or password is missing'})
+    user = user_service.get_user_by_email(email)
+    if not user:
+        return Response(status=404, data={'message': 'User Not Found'})
+
+    validated = user_service.validate_user_by_email_and_password(email, password)
+    if not validated:
+        return Response(status=401, data={'message': 'Invalid credentials'})
+    payload = {
+        'id': user.id,
+        'first_name': user.first_name,
+        'email': user.email
+    }
+    token = ApiTokenUtil.start_session(payload)
+    data = {
+        'token': token,
+        'first_name': user.first_name,
+        'email': user.email
+    }
+    return Response(data=data)
+
