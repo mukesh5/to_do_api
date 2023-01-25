@@ -23,7 +23,7 @@ class _AuthorizationDecorator(object):
 
     def __call__(self, func):
         @functools.wraps(func)
-        def wrapper(request: HttpRequest):
+        def wrapper(request: HttpRequest, *args, **kwargs):
             try:
                 if not self.secret_key:
                     payload = jwt.decode(request.META['HTTP_AUTHORIZATION'], SECRET_KEY,
@@ -35,7 +35,7 @@ class _AuthorizationDecorator(object):
                 request.META['user'] = payload['id']
             except Exception:
                 request.META['is_authorized'] = False
-            return func(request)
+            return func(request, *args, **kwargs)
 
         return wrapper
 
