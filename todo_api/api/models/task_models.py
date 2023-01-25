@@ -1,6 +1,6 @@
 from django.db import models
 
-from todo_api.api.models.user_models import User
+from api.models.user_models import User
 
 
 class Task(models.Model):

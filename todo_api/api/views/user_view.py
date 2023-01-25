@@ -1,5 +1,4 @@
 from django.http import HttpRequest
-from django.shortcuts import render
 from datetime import datetime
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
