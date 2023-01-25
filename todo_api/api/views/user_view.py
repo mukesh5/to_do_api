@@ -22,7 +22,7 @@ def register_user(request):
     user.first_name = user_data.data.get('first_name')
     user.last_name = user_data.data.get('last_name')
     user.email = user_data.data.get('email')
-    user.password = user_data.data.get('password')
+    user.password = UserServiceImpl.encrypt_password(user_data.data.get('password'))
     user.created_at = datetime.now()
     user.updated_at = datetime.now()
     user = user_service.register_user(user)
