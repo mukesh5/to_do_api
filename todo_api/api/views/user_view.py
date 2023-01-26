@@ -51,7 +51,7 @@ def validate_user_login(request: HttpRequest) -> Response:
         return Response(status=422, data={'message': 'Email or password is missing'})
     user = user_service.get_user_by_email(email)
     if not user:
-        return Response(status=404, data={'message': 'User Not Found'})
+        return Response(status=422, data={'User Not Found'})
 
     validated = user_service.validate_user_by_email_and_password(email, password)
     if not validated:
