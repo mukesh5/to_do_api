@@ -64,3 +64,9 @@ Backend APIs for a simple To Do App using Django 4.1.5 and Django Rest Framework
 ### For API Payload you can download the below postman collection
 
 [POSTMAN_COLLECTION](https://drive.google.com/file/d/1kc1cd8kOM-6iuwElJi9-0pju6xitwTS1/view?usp=sharing)
+
+## Improvements that can be added
+
+### 1. Setup ENV for SECRET KEYS, DATABASE CREDENTIALS
+### 2. Setup Docker container for the service
+### 3. Add Unit Tests for all the APIs
