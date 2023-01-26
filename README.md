@@ -70,3 +70,4 @@ Backend APIs for a simple To Do App using Django 4.1.5 and Django Rest Framework
 ### 1. Setup ENV for SECRET KEYS, DATABASE CREDENTIALS
 ### 2. Setup Docker container for the service
 ### 3. Add Unit Tests for all the APIs
+### 4. User Sessions should expire after a given amount of time
